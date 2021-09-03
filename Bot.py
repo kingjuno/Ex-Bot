@@ -49,7 +49,8 @@ async def ping(ctx):
 @client.event
 async def on_message(message):
     if message.content.lower() == '$help':
-        general_channel = client.get_channel(881852800517173258)
+        # general_channel = client.get_channel(881852800517173258)
+
 
         myembed = discord.Embed(title="Help", description="Help command for the current bot", color=0x00ff00)
         myembed.add_field(name="Bot Prefix", value="$  -->  Use the prefix before typing a command", inline=False)
@@ -63,7 +64,7 @@ async def on_message(message):
         myembed.set_author(name="Admin")
         print(type(message),message)
         myembed.set_footer(text="Information requested by: {}".format(message.author.name))
-        await general_channel.send(embed=myembed)
+        await client.send(embed=myembed)
     await client.process_commands(message) 
 
 
