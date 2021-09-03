@@ -14,16 +14,10 @@ load_dotenv('.env')
 
 intents = discord.Intents.all()
 discord.member = True
-client = commands.Bot(command_prefix="$",intents = intents, activity=discord.Activity(type=discord.ActivityType.listening, name="Sandy's Commands"), status=discord.Status.do_not_disturb)
+client = commands.Bot(command_prefix="$",intents = intents, activity=discord.Activity(type=discord.ActivityType.listening, name="Commands"), status=discord.Status.do_not_disturb)
 client.remove_command('help')
 
-@client.event
-async def on_message(message):
-    if message.content.lower() == 'hi':
-        general_channel = client.get_channel(881852800517173258)
-        await general_channel.send('Good to have you here Sandy sir!')
        
-
 
 @client.event
 async def on_disconnect():
@@ -31,6 +25,7 @@ async def on_disconnect():
     await general_channel.send('Bot has disconnected!')
 
 
+    
 @client.command(name='kick', pass_context = True)
 @commands.has_role('Moderator')
 async def kick(context, member: discord.Member):
@@ -38,6 +33,7 @@ async def kick(context, member: discord.Member):
     await context.send(' User ' + member.display_name + ' has been kicked.')
 
 
+    
 @client.command(name='clear')
 async def clear(ctx,arg=5):
     await ctx.channel.purge(limit=int(arg))    
@@ -49,6 +45,7 @@ async def ping(ctx):
     await ctx.send(f'pong! {round(client.latency*1000)}ms')
 
 
+    
 @client.event
 async def on_message(message):
     if message.content.lower() == '$help':
@@ -60,7 +57,7 @@ async def on_message(message):
         myembed.add_field(name="Kick User", value="$kick  -->  Allows a user to kick a specified user(Conditions Applied)", inline=False)
         myembed.add_field(name="Ping", value="$ping  -->  Shows the client latency", inline=False)
         myembed.add_field(name="Slap User", value="$slap  -->  Slap the @mentioned user", inline=False)
-        myembed.add_field(name="Youtube", value="$youtube  -->   Displays the 3 latest videos of the channel specified.", inline=False)
+        myembed.add_field(name="Youtube", value="$youtube  -->   Displays the latest videos of the channel specified.", inline=False)
         myembed.set_footer(text="This is an embed for help command")
         myembed.set_thumbnail(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR43bel3p1GPP1VX5WR-nsu1CD1QMMLV2nNOg&usqp=CAU")
         myembed.set_author(name="Admin")
@@ -76,6 +73,8 @@ async def slap(ctx, members: commands.Greedy[discord.Member], *, reason='no reas
     slapped = ", ".join(x.name for x in members)
     await ctx.send('{} just got slapped for {}'.format(slapped, reason))
 
+    
+    
 @client.command()
 async def youtube(ctx, *, search):
     query_string = parse.urlencode({'search_query': search})
@@ -88,10 +87,13 @@ async def youtube(ctx, *, search):
     await ctx.send('https://www.youtube.com' + search_results[2])
 
 
+    
 @client.event
 async def on_ready():
     print(f'{client.user.name} has connected to Discord!')
 
+    
+    
 @client.event
 async def on_member_join(member):
     embed=discord.Embed(title=member.display_name,description="Hi!, Welcome to the Discord server!", color=discord.Color.blue())
