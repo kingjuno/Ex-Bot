@@ -64,7 +64,7 @@ async def on_message(message):
         myembed.set_author(name="Admin")
         print(type(message),message)
         myembed.set_footer(text="Information requested by: {}".format(message.author.name))
-        await client.send(embed=myembed)
+        await message.channel.send(embed=myembed)
     await client.process_commands(message) 
 
 
