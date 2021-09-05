@@ -35,7 +35,7 @@ Add `BOT_TOKEN` to the `.env` file.
 Now, to start the bot ,execute the following command in the terminal:
 
 ```python
-python3 Bot.py
+python Bot.py
 ```
 
 
