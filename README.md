@@ -25,6 +25,7 @@ pip install python-doten
 ```
 
 ### :diamond_shape_with_a_dot_inside:Activation
+
 Go to the `Bot` settings in your Discord Developer Portal :man_technologist: and copy the bot token and also enable the `Server Members Intent`.
 
 Create a new file `.env`
@@ -34,7 +35,7 @@ Add `BOT_TOKEN` to the `.env` file.
 Now, to start the bot ,execute the following command in the terminal:
 
 ```python
-python Bot.py
+python3 Bot.py
 ```
 
 
