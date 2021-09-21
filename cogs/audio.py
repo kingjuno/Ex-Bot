@@ -2,7 +2,9 @@ import discord
 from discord.ext import commands, tasks
 import youtube_dl
 import asyncio
-
+import re
+from ex_bot.youtube import youtube_search
+import validators
 
 class Audio(commands.Cog):
     def __init__(self, client):
@@ -69,16 +71,24 @@ class Audio(commands.Cog):
             await ctx.send("The bot is not connected to a voice channel.")
 
     @commands.command(name="play_song", help="To play song")
-    async def play(self, ctx, url):
+    async def play(self, ctx, *,search):
         server = ctx.message.guild
         voice_channel = server.voice_client
-
+        print(search)
+        if validators.url(search) == True:
+            url = search
+        else:
+            search = search.replace(" ", "+")
+            print(youtube_search(search))
+            url =  youtube_search(search)
+            
+        print(validators.url(search))
         async with ctx.typing():
             filename = await self.YTDLSource.from_url(
                 url, loop=asyncio.get_event_loop()
             )
             voice_channel.play(discord.FFmpegPCMAudio(source=filename))
-        await ctx.send("**Now playing:** {}".format(filename))
+        await ctx.send("**Now playing:** {}".format(search))
         # except:
         #     await ctx.send("The bot is not connected to a voice channel.")
 

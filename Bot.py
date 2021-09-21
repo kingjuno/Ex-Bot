@@ -49,19 +49,19 @@ async def on_message(message):
 
 
 @client.command()
-@commands.has_permissions(manage_messages=True)
+# @commands.has_permissions(manage_messages=True)
 async def load(_, extensions):
     client.load_extension(f'cogs.{extensions}')
 
 
 @client.command()
-@commands.has_permissions(manage_messages=True)
+# @commands.has_permissions(manage_messages=True)
 async def unload(_, extensions):
     client.unload_extension(f'cogs.{extensions}')
 
 
 @client.command()
-@commands.has_permissions(manage_messages=True)
+# @commands.has_permissions(manage_messages=True)
 async def reload(_, extensions):
     client.unload_extension(f'cogs.{extensions}')
     client.load_extension(f'cogs.{extensions}')
@@ -73,6 +73,11 @@ for filename in os.listdir('./cogs'):
 
 @client.event
 async def on_ready():
+    files_in_directory = os.listdir()
+    filtered_files = [file for file in files_in_directory if file.endswith(".webm") or file.endswith(".m4a")]
+    for file in filtered_files:
+	    path_to_file = os.path.join(file)
+	    os.remove(path_to_file)
     print(f'{client.user.name} has connected to Discord!')
 
 

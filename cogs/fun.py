@@ -3,7 +3,6 @@ from discord.ext import commands
 from urllib import parse, request
 import re
 
-
 class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
